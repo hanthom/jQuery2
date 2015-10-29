@@ -22,6 +22,7 @@ $(document).ready(function() {
 				else {
 					listo.splice(i, 1);
 				}
+				updateStorage();
 				break;
 			}
 		}
@@ -30,9 +31,9 @@ $(document).ready(function() {
 
 	var addTask = function(task) {
 		if (task) {
-			task = new Task(task);
+			task = new Tasks(task);
 			listo.push(task);
-
+			updateStorage();
 			$('#newItemInput').val('');
 			$('#newList').append('<a href="#" class="" id="item"><li class="list-group-item">' + task.task + '<span class="arrow pull-right"><i class="glyphicon glyphicon-arrow-right"></span></li></a>');
 		}
@@ -43,6 +44,7 @@ $(document).ready(function() {
 	$('#saveNew').on('click', function(e) {
 		e.preventDefault();
 		var task = $('#newItemInput').val().trim();
+		console.log(task);
 		addTask(task);
 	});
 
@@ -83,5 +85,8 @@ $(document).ready(function() {
 		advanceTask(task);
 	});
 
+	var updateStorage = function() {
+		localStorage["TaskList"] = listo;
+	}
 
 })
